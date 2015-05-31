@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ecd486a098004b778f72e5389d72bf90" Name="Diagram1">
+        <EntityTypeShape EntityType="mtgRulesModel.MainRule" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mtgRulesModel.MainRuleExample" Width="1.5" PointX="5.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mtgRulesModel.Section" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mtgRulesModel.SubRule" Width="1.5" PointX="2.875" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="mtgRulesModel.SubRuleExample" Width="1.5" PointX="5.375" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="mtgRulesModel.FK_MainRule_Section" ManuallyRouted="false" />
+        <AssociationConnector Association="mtgRulesModel.FK_MainRuleExample_MainRule" ManuallyRouted="false" />
+        <AssociationConnector Association="mtgRulesModel.FK_SubRule_MainRule" ManuallyRouted="false" />
+        <AssociationConnector Association="mtgRulesModel.FK_SubRuleExample_SubRule" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

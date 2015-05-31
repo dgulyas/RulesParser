@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mtgRulesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MainRule">
+          <Key>
+            <PropertyRef Name="mainRuleID" />
+          </Key>
+          <Property Name="mainRuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sectionID" Type="int" Nullable="false" />
+          <Property Name="mainRuleNumber" Type="int" Nullable="false" />
+          <Property Name="ruleText" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="MainRuleExample">
+          <Key>
+            <PropertyRef Name="mainRuleExampleID" />
+          </Key>
+          <Property Name="mainRuleExampleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mainRuleId" Type="int" Nullable="false" />
+          <Property Name="exampleText" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="sectionID" />
+          </Key>
+          <Property Name="sectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sectionNumber" Type="int" Nullable="false" />
+          <Property Name="sectionName" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubRule">
+          <Key>
+            <PropertyRef Name="subRuleID" />
+          </Key>
+          <Property Name="subRuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mainRuleId" Type="int" Nullable="false" />
+          <Property Name="subRuleLetter" Type="int" Nullable="false" />
+          <Property Name="ruleText" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="SubRuleExample">
+          <Key>
+            <PropertyRef Name="subRuleExampleID" />
+          </Key>
+          <Property Name="subRuleExampleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subRuleId" Type="int" Nullable="false" />
+          <Property Name="exampleText" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <Association Name="FK_MainRule_Section">
+          <End Role="Section" Type="Self.Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MainRule" Type="Self.MainRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="sectionID" />
+            </Principal>
+            <Dependent Role="MainRule">
+              <PropertyRef Name="sectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MainRuleExample_MainRule">
+          <End Role="MainRule" Type="Self.MainRule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MainRuleExample" Type="Self.MainRuleExample" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainRule">
+              <PropertyRef Name="mainRuleID" />
+            </Principal>
+            <Dependent Role="MainRuleExample">
+              <PropertyRef Name="mainRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubRule_MainRule">
+          <End Role="MainRule" Type="Self.MainRule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SubRule" Type="Self.SubRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainRule">
+              <PropertyRef Name="mainRuleID" />
+            </Principal>
+            <Dependent Role="SubRule">
+              <PropertyRef Name="mainRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubRuleExample_SubRule">
+          <End Role="SubRule" Type="Self.SubRule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SubRuleExample" Type="Self.SubRuleExample" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubRule">
+              <PropertyRef Name="subRuleID" />
+            </Principal>
+            <Dependent Role="SubRuleExample">
+              <PropertyRef Name="subRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mtgRulesModelStoreContainer">
+          <EntitySet Name="MainRule" EntityType="Self.MainRule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MainRuleExample" EntityType="Self.MainRuleExample" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubRule" EntityType="Self.SubRule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubRuleExample" EntityType="Self.SubRuleExample" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MainRule_Section" Association="Self.FK_MainRule_Section">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="MainRule" EntitySet="MainRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MainRuleExample_MainRule" Association="Self.FK_MainRuleExample_MainRule">
+            <End Role="MainRule" EntitySet="MainRule" />
+            <End Role="MainRuleExample" EntitySet="MainRuleExample" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubRule_MainRule" Association="Self.FK_SubRule_MainRule">
+            <End Role="MainRule" EntitySet="MainRule" />
+            <End Role="SubRule" EntitySet="SubRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubRuleExample_SubRule" Association="Self.FK_SubRuleExample_SubRule">
+            <End Role="SubRule" EntitySet="SubRule" />
+            <End Role="SubRuleExample" EntitySet="SubRuleExample" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mtgRulesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MainRule">
+          <Key>
+            <PropertyRef Name="mainRuleID" />
+          </Key>
+          <Property Name="mainRuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sectionID" Type="Int32" Nullable="false" />
+          <Property Name="mainRuleNumber" Type="Int32" Nullable="false" />
+          <Property Name="ruleText" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Section" Relationship="Self.FK_MainRule_Section" FromRole="MainRule" ToRole="Section" />
+          <NavigationProperty Name="MainRuleExamples" Relationship="Self.FK_MainRuleExample_MainRule" FromRole="MainRule" ToRole="MainRuleExample" />
+          <NavigationProperty Name="SubRules" Relationship="Self.FK_SubRule_MainRule" FromRole="MainRule" ToRole="SubRule" />
+        </EntityType>
+        <EntityType Name="MainRuleExample">
+          <Key>
+            <PropertyRef Name="mainRuleExampleID" />
+          </Key>
+          <Property Name="mainRuleExampleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mainRuleId" Type="Int32" Nullable="false" />
+          <Property Name="exampleText" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MainRule" Relationship="Self.FK_MainRuleExample_MainRule" FromRole="MainRuleExample" ToRole="MainRule" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="sectionID" />
+          </Key>
+          <Property Name="sectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sectionNumber" Type="Int32" Nullable="false" />
+          <Property Name="sectionName" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MainRules" Relationship="Self.FK_MainRule_Section" FromRole="Section" ToRole="MainRule" />
+        </EntityType>
+        <EntityType Name="SubRule">
+          <Key>
+            <PropertyRef Name="subRuleID" />
+          </Key>
+          <Property Name="subRuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mainRuleId" Type="Int32" Nullable="false" />
+          <Property Name="subRuleLetter" Type="Int32" Nullable="false" />
+          <Property Name="ruleText" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MainRule" Relationship="Self.FK_SubRule_MainRule" FromRole="SubRule" ToRole="MainRule" />
+          <NavigationProperty Name="SubRuleExamples" Relationship="Self.FK_SubRuleExample_SubRule" FromRole="SubRule" ToRole="SubRuleExample" />
+        </EntityType>
+        <EntityType Name="SubRuleExample">
+          <Key>
+            <PropertyRef Name="subRuleExampleID" />
+          </Key>
+          <Property Name="subRuleExampleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subRuleId" Type="Int32" Nullable="false" />
+          <Property Name="exampleText" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SubRule" Relationship="Self.FK_SubRuleExample_SubRule" FromRole="SubRuleExample" ToRole="SubRule" />
+        </EntityType>
+        <Association Name="FK_MainRule_Section">
+          <End Role="Section" Type="Self.Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MainRule" Type="Self.MainRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="sectionID" />
+            </Principal>
+            <Dependent Role="MainRule">
+              <PropertyRef Name="sectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MainRuleExample_MainRule">
+          <End Role="MainRule" Type="Self.MainRule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MainRuleExample" Type="Self.MainRuleExample" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainRule">
+              <PropertyRef Name="mainRuleID" />
+            </Principal>
+            <Dependent Role="MainRuleExample">
+              <PropertyRef Name="mainRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubRule_MainRule">
+          <End Role="MainRule" Type="Self.MainRule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SubRule" Type="Self.SubRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainRule">
+              <PropertyRef Name="mainRuleID" />
+            </Principal>
+            <Dependent Role="SubRule">
+              <PropertyRef Name="mainRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubRuleExample_SubRule">
+          <End Role="SubRule" Type="Self.SubRule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SubRuleExample" Type="Self.SubRuleExample" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubRule">
+              <PropertyRef Name="subRuleID" />
+            </Principal>
+            <Dependent Role="SubRuleExample">
+              <PropertyRef Name="subRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mtgRulesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MainRules" EntityType="Self.MainRule" />
+          <EntitySet Name="MainRuleExamples" EntityType="Self.MainRuleExample" />
+          <EntitySet Name="Sections" EntityType="Self.Section" />
+          <EntitySet Name="SubRules" EntityType="Self.SubRule" />
+          <EntitySet Name="SubRuleExamples" EntityType="Self.SubRuleExample" />
+          <AssociationSet Name="FK_MainRule_Section" Association="Self.FK_MainRule_Section">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="MainRule" EntitySet="MainRules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MainRuleExample_MainRule" Association="Self.FK_MainRuleExample_MainRule">
+            <End Role="MainRule" EntitySet="MainRules" />
+            <End Role="MainRuleExample" EntitySet="MainRuleExamples" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubRule_MainRule" Association="Self.FK_SubRule_MainRule">
+            <End Role="MainRule" EntitySet="MainRules" />
+            <End Role="SubRule" EntitySet="SubRules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubRuleExample_SubRule" Association="Self.FK_SubRuleExample_SubRule">
+            <End Role="SubRule" EntitySet="SubRules" />
+            <End Role="SubRuleExample" EntitySet="SubRuleExamples" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mtgRulesModelStoreContainer" CdmEntityContainer="mtgRulesEntities">
+          <EntitySetMapping Name="MainRules">
+            <EntityTypeMapping TypeName="mtgRulesModel.MainRule">
+              <MappingFragment StoreEntitySet="MainRule">
+                <ScalarProperty Name="mainRuleID" ColumnName="mainRuleID" />
+                <ScalarProperty Name="sectionID" ColumnName="sectionID" />
+                <ScalarProperty Name="mainRuleNumber" ColumnName="mainRuleNumber" />
+                <ScalarProperty Name="ruleText" ColumnName="ruleText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MainRuleExamples">
+            <EntityTypeMapping TypeName="mtgRulesModel.MainRuleExample">
+              <MappingFragment StoreEntitySet="MainRuleExample">
+                <ScalarProperty Name="mainRuleExampleID" ColumnName="mainRuleExampleID" />
+                <ScalarProperty Name="mainRuleId" ColumnName="mainRuleId" />
+                <ScalarProperty Name="exampleText" ColumnName="exampleText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="mtgRulesModel.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="sectionID" ColumnName="sectionID" />
+                <ScalarProperty Name="sectionNumber" ColumnName="sectionNumber" />
+                <ScalarProperty Name="sectionName" ColumnName="sectionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubRules">
+            <EntityTypeMapping TypeName="mtgRulesModel.SubRule">
+              <MappingFragment StoreEntitySet="SubRule">
+                <ScalarProperty Name="subRuleID" ColumnName="subRuleID" />
+                <ScalarProperty Name="mainRuleId" ColumnName="mainRuleId" />
+                <ScalarProperty Name="subRuleLetter" ColumnName="subRuleLetter" />
+                <ScalarProperty Name="ruleText" ColumnName="ruleText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubRuleExamples">
+            <EntityTypeMapping TypeName="mtgRulesModel.SubRuleExample">
+              <MappingFragment StoreEntitySet="SubRuleExample">
+                <ScalarProperty Name="subRuleExampleID" ColumnName="subRuleExampleID" />
+                <ScalarProperty Name="subRuleId" ColumnName="subRuleId" />
+                <ScalarProperty Name="exampleText" ColumnName="exampleText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
