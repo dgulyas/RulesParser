@@ -83,6 +83,7 @@
     <Compile Include="EF\SubRuleExample.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="RuleParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config\App.config" />

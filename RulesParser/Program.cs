@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,18 @@ namespace RulesParser
 	{
 		static void Main(string[] args)
 		{
-			var g = GlossaryParser.GetGlossary();
-			GlossaryParser.PrintGlossary(g);
-
+			
+			
+			RuleParser.ParseRules();
+			RuleParser.testGetRuleLineType();
 			
 		}
+
+
+
+
+
+
+
 	}
 }

@@ -16,8 +16,8 @@ namespace RulesParser
 		{
 
 			string glossaryText = System.IO.File.ReadAllText(glossaryLocation);
-			var glossary = new Dictionary<string, List<string>>();
 			var parsedGlossary = glossaryText.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+			var glossary = new Dictionary<string, List<string>>();
 			//Regex.Split(glossaryText, Environment.NewLine);
 
 			var currentTerm = string.Empty;
