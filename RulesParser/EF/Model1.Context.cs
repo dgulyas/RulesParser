@@ -30,5 +30,6 @@ namespace RulesParser.EF
         public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<SubRule> SubRules { get; set; }
         public virtual DbSet<SubRuleExample> SubRuleExamples { get; set; }
+        public virtual DbSet<SubSection> SubSections { get; set; }
     }
 }

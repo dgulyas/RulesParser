@@ -16,13 +16,13 @@ namespace RulesParser.EF
     {
         public Section()
         {
-            this.MainRules = new HashSet<MainRule>();
+            this.SubSections = new HashSet<SubSection>();
         }
     
         public int sectionID { get; set; }
         public int sectionNumber { get; set; }
         public int sectionName { get; set; }
     
-        public virtual ICollection<MainRule> MainRules { get; set; }
+        public virtual ICollection<SubSection> SubSections { get; set; }
     }
 }

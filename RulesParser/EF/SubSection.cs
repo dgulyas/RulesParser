@@ -12,22 +12,19 @@ namespace RulesParser.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class MainRule
+    public partial class SubSection
     {
-        public MainRule()
+        public SubSection()
         {
-            this.MainRuleExamples = new HashSet<MainRuleExample>();
-            this.SubRules = new HashSet<SubRule>();
+            this.MainRules = new HashSet<MainRule>();
         }
     
-        public int mainRuleID { get; set; }
-        public int sectionID { get; set; }
-        public int mainRuleNumber { get; set; }
-        public string ruleText { get; set; }
         public int subSectionID { get; set; }
+        public int sectionID { get; set; }
+        public int subSectionNumber { get; set; }
+        public string subSectionName { get; set; }
     
-        public virtual ICollection<MainRuleExample> MainRuleExamples { get; set; }
-        public virtual ICollection<SubRule> SubRules { get; set; }
-        public virtual SubSection SubSection { get; set; }
+        public virtual ICollection<MainRule> MainRules { get; set; }
+        public virtual Section Section { get; set; }
     }
 }
