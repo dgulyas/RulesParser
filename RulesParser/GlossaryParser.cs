@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace RulesParser
-{	
+{
 	static class GlossaryParser
 	{
 
 		//This returns a Dictionary, where the key is the term we're defining
 		//and the value is a list of all the different definitions.
-		//This assumes that each term/definition pair is seperated by an empty line.
+		//This assumes that each term/definition pair is separated by an empty line.
 		public static Dictionary<string, List<string>> GetGlossary(string glossaryLocation = @".\text\glossary.txt")
 		{
-
-			string glossaryText = System.IO.File.ReadAllText(glossaryLocation);
+			string glossaryText = File.ReadAllText(glossaryLocation);
 			var parsedGlossary = glossaryText.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 			var glossary = new Dictionary<string, List<string>>();
 			//Regex.Split(glossaryText, Environment.NewLine);

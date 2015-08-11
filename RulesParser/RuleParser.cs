@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using RulesParser.EF;
+using System.IO;
 
 namespace RulesParser
 {
@@ -15,7 +10,7 @@ namespace RulesParser
 
 		public static void ParseRules(string glossaryLocation = @".\text\rules.txt")
 		{
-			string rulesText = System.IO.File.ReadAllText(glossaryLocation);
+			string rulesText = File.ReadAllText(glossaryLocation);
 			var parsedRules = rulesText.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 			foreach (var line in parsedRules)
 			{
@@ -24,7 +19,7 @@ namespace RulesParser
 					continue;
 				}
 
-				int tokenRuleDivide = line.IndexOf(" ");
+				int tokenRuleDivide = line.IndexOf(" ", StringComparison.Ordinal);
 				var token = line.Substring(0, tokenRuleDivide);
 				if (token == "")
 				{
@@ -85,8 +80,8 @@ namespace RulesParser
 			Debug.Assert(getRuleLineType("401.7.") == lineType.MainRuleLine, (++testNumber).ToString());
 			Debug.Assert(getRuleLineType("405.6d") == lineType.SubRuleLine, (++testNumber).ToString());
 			Debug.Assert(getRuleLineType("508.1j") == lineType.SubRuleLine, (++testNumber).ToString());
-			//Debug.Assert(getRuleLineType("Example:") == lineType.SectionLine, (++testNumber).ToString());
-			//Debug.Assert(getRuleLineType("...") == null, (++testNumber).ToString());
+			Debug.Assert(getRuleLineType("Example:") == lineType.SectionLine, (++testNumber).ToString());
+			Debug.Assert(getRuleLineType("...") == null, (++testNumber).ToString());
 		}
 
 	}
